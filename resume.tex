@@ -1,39 +1,26 @@
-\documentclass[letterpaper,11pt]{article}
+\documentclass[11pt,letterpaper]{article}
 
 \usepackage{latexsym}
-\usepackage[empty]{fullpage}
 \usepackage{titlesec}
-\usepackage{marvosym}
-\usepackage[usenames,dvipsnames]{color}
-\usepackage{verbatim}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
-\usepackage{tabularx}
 
+% Page setup
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-% Adjust margins
-\addtolength{\oddsidemargin}{-0.5in}
-\addtolength{\evensidemargin}{-0.5in}
-\addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
+% Margins
+\usepackage[left=0.5in,right=0.5in,top=0.5in,bottom=0.5in]{geometry}
 
-\urlstyle{same}
-\raggedbottom
-\raggedright
-\setlength{\tabcolsep}{0in}
-
-% Sections formatting
+% Section formatting
 \titleformat{\section}{
   \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+}{}{0em}{}[\vspace{-5pt}]
 
 % Custom commands
 \newcommand{\resumeItem}[2]{
@@ -44,14 +31,13 @@
 
 \newcommand{\resumeSubheading}[4]{
   \vspace{-1pt}\item
-    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
     \end{tabular*}\vspace{-5pt}
 }
 
 \newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
-\renewcommand{\labelitemii}{$\circ$}
 
 \newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
@@ -61,11 +47,13 @@
 \begin{document}
 
 %----------HEADING-----------------
-\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
-  \textbf{\href{https://linkedin.com/in/sanjeev-singh}{\Large Sanjeev Singh}} & Email : \href{mailto:sanjeev.singh.hire@gmail.com}{sanjeev.singh.hire@gmail.com}\\
-  \href{https://linkedin.com/in/sanjeev-singh}{linkedin.com/in/sanjeev-singh} & Mobile : +1-XXX-XXX-XXXX \\
-  \href{https://github.com/sudo-sanjeev}{github.com/sudo-sanjeev} & Location: Your City, State
-\end{tabular*}
+\begin{center}
+    {\Large \textbf{Sanjeev Singh}} \\
+    \vspace{5pt}
+    \href{mailto:sanjeev.singh.hire@gmail.com}{sanjeev.singh.hire@gmail.com} | +1-XXX-XXX-XXXX \\
+    \href{https://linkedin.com/in/sanjeev-singh}{linkedin.com/in/sanjeev-singh} | \href{https://github.com/sudo-sanjeev}{github.com/sudo-sanjeev} \\
+    Your City, State
+\end{center}
 
 %-----------EDUCATION-----------------
 \section{Education}
@@ -104,14 +92,16 @@
 \section{Technical Skills}
   \resumeSubHeadingListStart
     \item{
-      \textbf{Languages}{: Python, JavaScript, Java, C++}
-      \hfill
-      \textbf{Frameworks}{: React, Node.js, Django, Flask}
+      \textbf{Languages}: Python, JavaScript, Java, C++
     }
     \item{
-      \textbf{Tools}{: Git, Docker, AWS, Linux}
-      \hfill
-      \textbf{Databases}{: PostgreSQL, MongoDB, MySQL}
+      \textbf{Frameworks}: React, Node.js, Django, Flask
+    }
+    \item{
+      \textbf{Tools}: Git, Docker, AWS, Linux
+    }
+    \item{
+      \textbf{Databases}: PostgreSQL, MongoDB, MySQL
     }
   \resumeSubHeadingListEnd
 
