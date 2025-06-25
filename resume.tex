@@ -1,0 +1,118 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\href{https://linkedin.com/in/sanjeev-singh}{\Large Sanjeev Singh}} & Email : \href{mailto:sanjeev.singh.hire@gmail.com}{sanjeev.singh.hire@gmail.com}\\
+  \href{https://linkedin.com/in/sanjeev-singh}{linkedin.com/in/sanjeev-singh} & Mobile : +1-XXX-XXX-XXXX \\
+  \href{https://github.com/sudo-sanjeev}{github.com/sudo-sanjeev} & Location: Your City, State
+\end{tabular*}
+
+%-----------EDUCATION-----------------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Your University}{City, State}
+      {Bachelor/Master of Science in Computer Science;  GPA: X.XX}{Month Year -- Month Year}
+  \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Software Engineer}{City, State}
+      {Company Name}{Month Year - Present}
+      \resumeItemListStart
+        \resumeItem{Development}
+          {Built and maintained applications using modern technologies}
+        \resumeItem{Performance}
+          {Improved system performance by X\% through optimization}
+        \resumeItem{Collaboration}
+          {Worked with cross-functional teams to deliver features}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------------
+\section{Projects}
+  \resumeSubHeadingListStart
+    \resumeSubItem{Project Name}
+      {Description of your project, technologies used, and impact}
+    \resumeSubItem{Another Project}
+      {Description of another significant project you worked on}
+  \resumeSubHeadingListEnd
+
+%--------TECHNICAL SKILLS------------
+\section{Technical Skills}
+  \resumeSubHeadingListStart
+    \item{
+      \textbf{Languages}{: Python, JavaScript, Java, C++}
+      \hfill
+      \textbf{Frameworks}{: React, Node.js, Django, Flask}
+    }
+    \item{
+      \textbf{Tools}{: Git, Docker, AWS, Linux}
+      \hfill
+      \textbf{Databases}{: PostgreSQL, MongoDB, MySQL}
+    }
+  \resumeSubHeadingListEnd
+
+\end{document}
