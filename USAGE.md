@@ -1,7 +1,7 @@
-# 🚀 Enhanced Multi-File LaTeX System
+# 🚀 Enhanced Multi-File LaTeX System with Source Organization
 
 ## Overview
-Your LaTeX system now supports multiple `.tex` files with organized output management. All PDFs are generated in the `resume/` folder to keep your project organized.
+Your LaTeX system now supports multiple `.tex` files with organized source management. All source files go in the `src/` folder, and all PDFs are generated in the `resume/` folder for maximum organization.
 
 ## Quick Start
 
@@ -18,16 +18,16 @@ Your LaTeX system now supports multiple `.tex` files with organized output manag
 
 ### Compile Different Files
 ```bash
-./latex.sh compile resume.tex          # Compile resume
-./latex.sh compile cover-letter.tex    # Compile cover letter
+./latex.sh compile resume.tex          # Compile resume.tex from src/
+./latex.sh compile cover-letter.tex    # Compile cover-letter.tex from src/
 ./latex.sh compile                     # Compile resume.tex (default)
 ```
 
 ### Watch Mode (Auto-compile on save)
 ```bash
-./latex.sh watch resume.tex            # Watch resume.tex
-./latex.sh watch cover-letter.tex      # Watch cover letter
-./latex.sh watch                       # Watch resume.tex (default)
+./latex.sh watch resume.tex            # Watch src/resume.tex
+./latex.sh watch cover-letter.tex      # Watch src/cover-letter.tex
+./latex.sh watch                       # Watch src/resume.tex (default)
 ```
 
 ### File Management
@@ -36,94 +36,117 @@ Your LaTeX system now supports multiple `.tex` files with organized output manag
 ./latex.sh clean                       # Clean output directory
 ```
 
-## File Structure
+## Organized File Structure
 ```
 resume-project/
-├── resume.tex                    # Your LaTeX files
-├── cover-letter.tex             # (example additional file)
-├── resume/                      # 📁 All PDFs go here
-│   ├── resume.pdf
-│   └── cover-letter.pdf
-├── latex.sh                     # 🚀 Master command
-├── compile.sh                   # Enhanced compiler
-└── watch-compile.sh             # Enhanced watcher
+├── src/                         # 📁 SOURCE FILES
+│   ├── resume.tex              #     Your LaTeX files go here
+│   ├── cover-letter.tex        #     (example additional file)
+│   └── research-paper.tex      #     (any .tex files)
+├── resume/                     # 📁 GENERATED FILES
+│   ├── resume.pdf             #     All PDFs
+│   ├── resume.aux             #     Auxiliary files
+│   ├── resume.log             #     Log files
+│   └── cover-letter.pdf       #     Multiple PDFs supported
+├── latex.sh                    # 🚀 Master command
+├── compile.sh                  # Enhanced compiler
+└── watch-compile.sh            # Enhanced watcher
 ```
 
 ## Workflow Examples
 
 ### Working on Resume
 ```bash
-# Start watching
+# Edit src/resume.tex in Cursor
 ./latex.sh watch resume.tex
 
-# Edit resume.tex in Cursor
 # Save file → PDF auto-compiles → PDF auto-opens in Cursor
+# Generated: resume/resume.pdf
 ```
 
 ### Working on Cover Letter
 ```bash
-# Create cover-letter.tex
-# Start watching
+# Create src/cover-letter.tex
 ./latex.sh watch cover-letter.tex
 
-# Edit cover-letter.tex
+# Edit src/cover-letter.tex
 # Save → compile → open in Cursor
+# Generated: resume/cover-letter.pdf
 ```
 
 ### Multiple Projects
 ```bash
-# List all files
+# List all source files and outputs
 ./latex.sh list
 
-# Compile specific file
+# Compile specific files
 ./latex.sh compile resume.tex
 ./latex.sh compile cover-letter.tex
 
-# All PDFs organized in resume/ folder
+# All sources in src/, all PDFs in resume/
 ```
 
 ## Key Features
 
-### ✅ **Multi-File Support**
-- Work with any `.tex` file
-- Default to `resume.tex` if no file specified
-- Each file generates its own PDF
+### ✅ **Organized Source Management**
+- All `.tex` files go in `src/` folder
+- Clean project root directory
+- Easy to find and manage source files
 
-### ✅ **Organized Output**
-- All PDFs go to `resume/` folder
-- Keeps your project root clean
-- Easy to find generated files
+### ✅ **Multi-File Support**
+- Work with any `.tex` file in `src/`
+- Default to `resume.tex` if no file specified
+- Each file generates its own PDF in `resume/`
+
+### ✅ **Separated Output**
+- All PDFs and auxiliary files go to `resume/` folder
+- Keeps sources and outputs completely separate
+- Easy to clean up generated files
 
 ### ✅ **Smart Compilation**
-- Error checking for missing files
-- Clear feedback and file paths
-- Automatic output directory creation
+- Automatic source directory detection
+- Error checking for missing files and directories
+- Clear feedback about file locations
 
 ### ✅ **Auto-Preview in Cursor**
 - PDFs open in Cursor (not system viewer)
 - Works with PDF Preview extension
 - Automatic refresh on file changes
 
-## Migration from Old System
+## Migration and Setup
 
-### Old Way:
+### Setting Up Source Directory
 ```bash
-./compile.sh                    # Only worked with resume.tex
-./watch-compile.sh              # Only watched resume.tex
+mkdir src                           # Create source directory
+mv *.tex src/                      # Move existing .tex files
+./latex.sh list                    # Verify setup
 ```
 
-### New Way:
+### New Project Structure
 ```bash
-./latex.sh compile [filename]   # Works with any .tex file
-./latex.sh watch [filename]     # Watches any .tex file
+# Old way (files scattered):
+resume.tex, cover-letter.tex, resume.pdf, resume.aux, etc.
+
+# New organized way:
+src/resume.tex, src/cover-letter.tex
+resume/resume.pdf, resume/cover-letter.pdf, resume/*.aux
 ```
 
 ## Tips
 
-1. **Use `./latex.sh list`** to see all your files and PDFs
-2. **PDFs are in `resume/` folder** - not in project root
-3. **Default filename is `resume.tex`** - you can omit it
-4. **Use short commands:** `./latex.sh c` for compile, `./latex.sh w` for watch
-5. **Clean up with:** `./latex.sh clean`
+1. **Use `./latex.sh list`** to see your organized project structure  
+2. **Sources in `src/`** - all your `.tex` files go here
+3. **Outputs in `resume/`** - all PDFs and auxiliary files here
+4. **Default filename is `resume.tex`** - you can omit it
+5. **Use short commands:** `./latex.sh c` for compile, `./latex.sh w` for watch
+6. **Clean up outputs:** `./latex.sh clean` (sources remain untouched)
 
-🎯 **Perfect for:** Resumes, cover letters, reports, presentations - any LaTeX project! 
+## Project Benefits
+
+🎯 **Perfect Organization:** Sources and outputs completely separated  
+📁 **Clean Structure:** Easy to navigate and maintain  
+🚀 **Scalable:** Add unlimited `.tex` files to `src/`  
+🧹 **Easy Cleanup:** Clean outputs without touching sources  
+⚡ **Fast Development:** Same workflow, better organization  
+
+Perfect for: Resumes, cover letters, reports, presentations, academic papers! 
