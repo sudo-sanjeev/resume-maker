@@ -2,35 +2,32 @@
 
 echo "🚀 LaTeX Resume Compiler"
 echo "======================="
-
-if [ ! -f "resume.tex" ]; then
-    echo "❌ resume.tex not found!"
-    exit 1
-fi
-
 echo "📄 Compiling resume.tex..."
-echo ""
+echo
 
-echo "🌐 Using LaTeX Online API..."
-if command -v curl &> /dev/null; then
-    curl -X POST \
-         -F "filecontents=@resume.tex" \
-         -F "filename=resume.tex" \
-         https://latexonline.cc/compile \
-         -o resume.pdf
-    
-    if [ -f "resume.pdf" ] && [ -s "resume.pdf" ]; then
-        echo "✅ PDF generated successfully!"
-        open resume.pdf 2>/dev/null || echo "   PDF saved as resume.pdf"
-    else
-        echo "❌ PDF generation failed"
-        echo "💡 Alternative: Upload to Overleaf → https://www.overleaf.com/project"
+# Method 1: Local pdflatex (primary method with full MacTeX)
+if command -v pdflatex &> /dev/null; then
+    echo "🔧 Using local pdflatex..."
+    pdflatex -interaction=nonstopmode resume.tex
+    if [ $? -eq 0 ] && [ -f "resume.pdf" ] && [ -s "resume.pdf" ]; then
+        # Verify it's actually a PDF
+        if file resume.pdf | grep -q "PDF document"; then
+            echo "✅ PDF generated successfully with local pdflatex!"
+            echo "📄 PDF size: $(wc -c < resume.pdf) bytes"
+            echo
+            echo "🔄 Git workflow:"
+            echo "   git add . && git commit -m 'Update resume' && git push"
+            echo
+            exit 0
+        fi
     fi
-else
-    echo "❌ curl not available"
-    echo "💡 Upload resume.tex to Overleaf → https://www.overleaf.com/project"
+    echo "❌ Local compilation failed"
+    rm -f resume.pdf
 fi
 
-echo ""
-echo "🔄 Git workflow:"
-echo "   git add . && git commit -m 'Update resume' && git push"
+echo "❌ All compilation methods failed!"
+echo
+echo "📝 Manual options:"
+echo "1. Run: pdflatex resume.tex"
+echo "2. Use Overleaf: https://overleaf.com"
+echo "3. Check LaTeX installation: which pdflatex" 
