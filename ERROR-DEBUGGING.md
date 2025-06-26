@@ -151,11 +151,13 @@ Even successful compilation may have warnings:
 ### 📊 **Error File Locations**
 ```bash
 resume/
+└── resume.pdf            # 📄 Generated PDF (if successful)
+
+logs/
 ├── resume_errors.log      # 🎯 START HERE - Clean error analysis
 ├── resume_compile.log     # Raw compilation output  
 ├── resume.log            # Full LaTeX log
-├── resume.aux            # Auxiliary file
-└── resume.pdf            # Generated PDF (if successful)
+└── resume.aux            # Auxiliary file
 ```
 
 ### 🔍 **Manual Log Inspection**
@@ -167,12 +169,12 @@ grep -E "(Error|Warning|!)" resume/resume.log
 grep "undefined" resume/resume.log
 
 # View full structured analysis
-cat resume/resume_errors.log
+cat logs/resume_errors.log
 ```
 
 ### 🧹 **Clean Slate Debugging**
 ```bash
-./latex.sh clean           # Remove all generated files
+./latex.sh clean           # Remove all PDFs and logs
 ./latex.sh compile resume.tex  # Fresh compilation
 ```
 

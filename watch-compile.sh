@@ -10,6 +10,7 @@ TEX_FILE=${1:-resume.tex}
 BASE_NAME=$(basename "$TEX_FILE" .tex)
 SOURCE_DIR="src"
 OUTPUT_DIR="resume"
+LOGS_DIR="logs"
 SOURCE_PATH="$SOURCE_DIR/$TEX_FILE"
 PDF_OUTPUT="$OUTPUT_DIR/$BASE_NAME.pdf"
 

@@ -10,14 +10,16 @@ TEX_FILE=${1:-resume.tex}
 BASE_NAME=$(basename "$TEX_FILE" .tex)
 SOURCE_DIR="src"
 OUTPUT_DIR="resume"
+LOGS_DIR="logs"
 SOURCE_PATH="$SOURCE_DIR/$TEX_FILE"
-ERROR_LOG="$OUTPUT_DIR/${BASE_NAME}_errors.log"
+ERROR_LOG="$LOGS_DIR/${BASE_NAME}_errors.log"
 
 echo "🚀 LaTeX Multi-File Compiler"
 echo "============================"
 echo "📄 Compiling: $TEX_FILE"
 echo "📁 Source directory: $SOURCE_DIR"
-echo "📁 Output directory: $OUTPUT_DIR"
+echo "📁 PDF output: $OUTPUT_DIR"
+echo "📁 Logs directory: $LOGS_DIR"
 echo
 
 # Check if source directory exists
@@ -43,8 +45,9 @@ if [ ! -f "$SOURCE_PATH" ]; then
     exit 1
 fi
 
-# Create output directory if it doesn't exist
+# Create output and logs directories if they don't exist
 mkdir -p "$OUTPUT_DIR"
+mkdir -p "$LOGS_DIR"
 
 # Function to extract and display LaTeX errors
 extract_latex_errors() {
@@ -136,6 +139,45 @@ extract_latex_errors() {
     fi
 }
 
+# Function to organize output files
+organize_output_files() {
+    local base_name="$1"
+    
+    # Move log files to logs directory
+    if [ -f "$OUTPUT_DIR/$base_name.log" ]; then
+        mv "$OUTPUT_DIR/$base_name.log" "$LOGS_DIR/"
+    fi
+    
+    if [ -f "$OUTPUT_DIR/$base_name.aux" ]; then
+        mv "$OUTPUT_DIR/$base_name.aux" "$LOGS_DIR/"
+    fi
+    
+    if [ -f "$OUTPUT_DIR/$base_name.out" ]; then
+        mv "$OUTPUT_DIR/$base_name.out" "$LOGS_DIR/"
+    fi
+    
+    if [ -f "$OUTPUT_DIR/$base_name.toc" ]; then
+        mv "$OUTPUT_DIR/$base_name.toc" "$LOGS_DIR/"
+    fi
+    
+    if [ -f "$OUTPUT_DIR/$base_name.lof" ]; then
+        mv "$OUTPUT_DIR/$base_name.lof" "$LOGS_DIR/"
+    fi
+    
+    if [ -f "$OUTPUT_DIR/$base_name.lot" ]; then
+        mv "$OUTPUT_DIR/$base_name.lot" "$LOGS_DIR/"
+    fi
+    
+    # Keep only PDF in output directory
+    echo "📁 Organized output:"
+    if [ -f "$OUTPUT_DIR/$base_name.pdf" ]; then
+        echo "   📄 PDF: $OUTPUT_DIR/$base_name.pdf"
+    fi
+    if [ -f "$LOGS_DIR/$base_name.log" ]; then
+        echo "   📋 Logs: $LOGS_DIR/$base_name.*"
+    fi
+}
+
 # Method 1: Local pdflatex (primary method with full MacTeX)
 if command -v pdflatex &> /dev/null; then
     echo "🔧 Using local pdflatex..."
@@ -145,7 +187,7 @@ if command -v pdflatex &> /dev/null; then
     cd "$SOURCE_DIR"
     
     # Create temporary log file for better error handling
-    TEMP_LOG="../$OUTPUT_DIR/${BASE_NAME}_compile.log"
+    TEMP_LOG="../$LOGS_DIR/${BASE_NAME}_compile.log"
     
     echo "📝 Running pdflatex..."
     pdflatex -interaction=nonstopmode -output-directory="../$OUTPUT_DIR" "$TEX_FILE" > "$TEMP_LOG" 2>&1
@@ -154,7 +196,10 @@ if command -v pdflatex &> /dev/null; then
     cd ..
     
     PDF_OUTPUT="$OUTPUT_DIR/$BASE_NAME.pdf"
-    LOG_OUTPUT="$OUTPUT_DIR/$BASE_NAME.log"
+    LOG_OUTPUT="$LOGS_DIR/$BASE_NAME.log"
+    
+    # Organize output files (move logs to logs directory)
+    organize_output_files "$BASE_NAME"
     
     # Check if compilation was successful
     if [ $COMPILE_EXIT_CODE -eq 0 ] && [ -f "$PDF_OUTPUT" ] && [ -s "$PDF_OUTPUT" ]; then
@@ -162,7 +207,7 @@ if command -v pdflatex &> /dev/null; then
         if file "$PDF_OUTPUT" | grep -q "PDF document"; then
             echo "✅ PDF generated successfully with local pdflatex!"
             echo "📄 Input: $SOURCE_PATH"
-            echo "📄 Output: $PDF_OUTPUT"
+            echo "📄 PDF: $PDF_OUTPUT"
             echo "📄 PDF size: $(wc -c < "$PDF_OUTPUT") bytes"
             
             # Check for warnings even in successful compilation
