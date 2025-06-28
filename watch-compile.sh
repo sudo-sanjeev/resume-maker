@@ -47,40 +47,6 @@ fi
 # Compile once initially
 ./compile.sh "$TEX_FILE"
 
-# Function to open PDF in Cursor reliably
-open_pdf_in_cursor() {
-    echo "📖 Opening PDF in Cursor..."
-    
-    # Method 1: Use AppleScript to force Cursor to open the file
-    osascript -e "
-    tell application \"Cursor\"
-        activate
-        delay 0.5
-        open POSIX file \"$(pwd)/$PDF_OUTPUT\"
-    end tell" 2>/dev/null
-    
-    if [ $? -eq 0 ]; then
-        echo "✅ PDF opened in Cursor!"
-        echo "💡 If it opened in system viewer, install 'PDF Preview' extension:"
-        echo "   Cursor -> Extensions -> Search 'PDF Preview' -> Install"
-        return 0
-    fi
-    
-    # Method 2: Fallback to direct app opening
-    echo "🔄 Trying alternative method..."
-    open -a "Cursor" "$PDF_OUTPUT" 2>/dev/null
-    
-    if [ $? -eq 0 ]; then
-        echo "✅ PDF opened with Cursor app!"
-        return 0
-    fi
-    
-    # Method 3: Last resort - system default
-    echo "⚠️  Falling back to system default viewer..."
-    open "$PDF_OUTPUT"
-    echo "❌ Could not open in Cursor. Install PDF Preview extension and try again."
-    return 1
-}
 
 # Function to compile and show status
 compile_and_notify() {
@@ -91,10 +57,6 @@ compile_and_notify() {
     if ./compile.sh "$TEX_FILE" > /dev/null 2>&1; then
         echo "✅ PDF updated successfully!"
         echo "📄 Output: $PDF_OUTPUT"
-        # Auto-open PDF in Cursor editor using multiple methods
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            open_pdf_in_cursor
-        fi
     else
         echo "❌ Compilation failed - check errors"
     fi

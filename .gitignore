@@ -8,6 +8,7 @@
 *.out
 *.synctex.gz
 *.toc
+*.pdf
 
 # Generated PDFs (optional)
 # *.pdf

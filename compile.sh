@@ -178,20 +178,33 @@ organize_output_files() {
     fi
 }
 
-# Method 1: Local pdflatex (primary method with full MacTeX)
-if command -v pdflatex &> /dev/null; then
-    echo "🔧 Using local pdflatex..."
-    
-    # Compile with source and output directories
-    # Use -output-directory for output, but need to handle source path properly
-    cd "$SOURCE_DIR"
-    
-    # Create temporary log file for better error handling
-    TEMP_LOG="../$LOGS_DIR/${BASE_NAME}_compile.log"
-    
-    echo "📝 Running pdflatex..."
-    pdflatex -interaction=nonstopmode -output-directory="../$OUTPUT_DIR" "$TEX_FILE" > "$TEMP_LOG" 2>&1
-    COMPILE_EXIT_CODE=$?
+# Check if the document requires XeLaTeX
+REQUIRES_XELATEX=false
+if grep -q "COMPILED WITH XeLaTeX" "$SOURCE_PATH" 2>/dev/null; then
+    REQUIRES_XELATEX=true
+fi
+
+# Method 1: Choose appropriate LaTeX engine
+if [ "$REQUIRES_XELATEX" = true ] && command -v xelatex &> /dev/null; then
+    echo "🔧 Using XeLaTeX (required for this template)..."
+    LATEX_ENGINE="xelatex"
+elif command -v pdflatex &> /dev/null; then
+    echo "🔧 Using pdfLaTeX..."
+    LATEX_ENGINE="pdflatex"
+else
+    echo "❌ No LaTeX engine found!"
+    exit 1
+fi
+
+# Compile with source and output directories
+cd "$SOURCE_DIR"
+
+# Create temporary log file for better error handling
+TEMP_LOG="../$LOGS_DIR/${BASE_NAME}_compile.log"
+
+echo "📝 Running $LATEX_ENGINE..."
+$LATEX_ENGINE -interaction=nonstopmode -output-directory="../$OUTPUT_DIR" "$TEX_FILE" > "$TEMP_LOG" 2>&1
+COMPILE_EXIT_CODE=$?
     
     cd ..
     
@@ -213,6 +226,7 @@ if command -v pdflatex &> /dev/null; then
             # Check for warnings even in successful compilation
             if [ -f "$LOG_OUTPUT" ]; then
                 WARNING_COUNT=$(grep -c "LaTeX Warning" "$LOG_OUTPUT" 2>/dev/null || echo "0")
+                WARNING_COUNT=${WARNING_COUNT:-0}
                 if [ "$WARNING_COUNT" -gt 0 ]; then
                     echo "⚠️  Compiled successfully but with $WARNING_COUNT warning(s)"
                     echo "📄 Check warnings in: $LOG_OUTPUT"
@@ -254,7 +268,6 @@ if command -v pdflatex &> /dev/null; then
     
     # Clean up failed PDF
     rm -f "$PDF_OUTPUT"
-fi
 
 echo "❌ All compilation methods failed!"
 echo
