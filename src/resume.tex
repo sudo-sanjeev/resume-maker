@@ -1,65 +1,12 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Deedy - One Page Two Column Resume
-% LaTeX Template
-% Version 1.3 (22/9/2018)
-%
-% Original author:
-% Debarghya Das (http://debarghyadas.com)
-%
-% Original repository:
-% https://github.com/deedydas/Deedy-Resume
-%
-% v1.3 author:
-% Zachary Taylor
-%
-% v1.3 repository:
-% https://github.com/ZDTaylor/Deedy-Resume-Reversed
-%
+% Sanjeev Singh Resume
+% Based on Deedy Resume Template
 % IMPORTANT: THIS TEMPLATE NEEDS TO BE COMPILED WITH XeLaTeX
-%
-% This template uses several fonts not included with Windows/Linux by
-% default. If you get compilation errors saying a font is missing, find the line
-% on which the font is used and either change it to a font included with your
-% operating system or comment the line out to use the default font.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% TODO:
-% 1. Add various styling and section options and allow for multiple pages smoothly.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% CHANGELOG:
-% v1.3:
-% 1. Removed MacFonts version as I have no desire to maintain it nor access to macOS
-% 2. Switched column ordering
-% 3. Changed font styles/colors for easier human readability
-% 4. Added, removed, and rearranged sections to reflect my own experience
-% 5. Hid last updated
-%
-% v1.2:
-% 1. Added publications in place of societies.
-% 2. Collapsed a portion of education.
-% 3. Fixed a bug with alignment of overflowing long last updated dates on the top right.
-%
-% v1.1:
-% 1. Fixed several compilation bugs with \renewcommand
-% 2. Got Open-source fonts (Windows/Linux support)
-% 3. Added Last Updated
-% 4. Move Title styling into .sty
-% 5. Commented .sty file.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Known Issues:
-% 1. Overflows onto second page if any column's contents are more than the vertical limit
-% 2. Hacky space on the first bullet point on the second column.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \documentclass[]{deedy-resume-reversed}
 \usepackage{fancyhdr}
+\usepackage{url}
+\urlstyle{same}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -79,7 +26,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \namesection{Sanjeev Singh}{ 
-\href{mailto:sanjeev.singh.hire@gmail.com}{sanjeev.singh.hire@gmail.com} | \href{tel:6284207388}{6284207388}
+Senior Software Engineer - Full-Stack Developer\\
+\href{mailto:sanjeev.singh0279@gmail.com}{sanjeev.singh0279@gmail.com} | \href{tel:6284207388}{628-420-7388} | \href{https://www.linkedin.com/in/sanjeevsingh27}{linkedin.com/in/sanjeevsingh27}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,130 +39,44 @@
 \begin{minipage}[t]{0.60\textwidth}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     OBJECTIVE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Objective}
+Software Engineer with 4+ years building user-centric web apps. Proficient in JavaScript, TypeScript, React, and modern frontend tech. Team player dedicated to creating scalable, high-performance solutions.
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     EXPERIENCE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Experience}
-\runsubsection{Company A}
-\descript{| Advanced Development Intern }
-\location{May 2018 – Aug 2018 | Somewhere, XX}
+\runsubsection{Adobe}
+\descript{| Senior Software Engineer }
+\location{June 2022 – Present | Noida, India}
 \vspace{\topsep} % Hacky fix for awkward extra vertical space
 \begin{tightemize}
-\item Developed a cloud-based solution to automate and enhance the engineering process for network installation using AWS and Python.
-\item Worked with other teams to create a system to collect and visualize telemetry data of network elements in real time using AWS, Python, and DOMO.
-\item Consulted with other teams to jump start cloud-technology adoption and solutions throughout the company.
-\item Contributed to initial planning for optics-alignment system utilizing AWS, reinforcement learning, and an IoT architecture.
+\item Built complete UI for \textbf{Text-to-Template} generative AI feature, a flagship product in Adobe Express, enabling users to create editable designs from prompts and images across desktop and mobile platforms; resolved critical memory leaks and performance issues during mobile optimization, implemented "Bring Your Own Image" functionality, and developed metering system for credit-based monetization.
+\item Developed custom \textbf{UI component library} for Adobe Express, enabling component reuse across multiple platforms and significantly reducing development time for new features.
+\item Built \textbf{authoring framework} with user entitlement system to control feature access and implement monetization strategies including paywalls and upgrade prompts.
+\item Engineered \textbf{"Open Express As You Left"} feature to preserve editor state, directly increasing exports by \textbf{3 million per quarter} by resuming user sessions seamlessly.
+\item Created \textbf{Recents \& Suggestions} system for easy access to recently used assets (templates, images, videos) and integrated ML model for intelligent asset recommendations based on user history.
+\item Currently developing \textbf{preview generation system} with multiple strategies to create off-screen document snapshots, allowing users to preview feature applications without disrupting their workflow.
 \end{tightemize}
 \sectionsep
 
-\runsubsection{Company B}
-\descript{| Intern }
-\location{Feb 2017 – Nov 2017 | Somewhere, XX}
+\runsubsection{Nagarro}
+\descript{| Software Engineer }
+\location{Jan 2021 – June 2022 | Gurgaon, India}
 \begin{tightemize}
-\item Coordinated with multiple departments to lead a software product evaluation resulting in a fit-for-purpose verdict and provided a recommendation on moving forward.
-\item Organized meetings with the vendor to receive in-depth product information and answers to cross-departmental questions.
-\item Participated on the Web Development Taskforce to provide AngularJS sites to internal customers.
-\item Participated in an internal CodeJam to prototype a blockchain application for managing a model supply-chain.
-\item Worked with a team to plan executive visit and team-building exercise for 200 employees.
+\item Developed and enhanced \textbf{15+ microservices} using Java, Spring Boot, Spring Data JPA, and PostgreSQL for e-commerce platform supporting millions of users.
+\item Built \textbf{coupon microservice} for automated daily and monthly coupon generation, improving customer engagement and retention rates.
+\item Implemented \textbf{address validation microservice} providing intelligent address suggestions to users, enhancing user experience and data quality.
+\item Actively participated in code reviews and debugging to improve application performance and maintain high code quality standards.
+\item Collaborated in continuous improvement initiatives, contributing suggestions and problem-solving solutions to enhance team productivity.
+\item \textbf{Promoted from Trainee to Software Engineer} after demonstrating strong technical skills and building 8+ training projects from scratch.
 \end{tightemize}
 \sectionsep
-
-\runsubsection{My University ITS}
-\descript{| Assistant Support Specialist }
-\location{Aug 2015 – Oct 2016 | Somewhere, XX}
-\begin{tightemize}
-\item Interacted with clients to assess their problems and implement a solution in an efficient, friendly manner.
-\item Prepared workstations and laptops for future use by company employees.
-\item Created scripts to automate common tasks and increase productivity.
-\end{tightemize}
-\sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     PROJECTS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Projects}
-\runsubsection{Space Robotics Team}
-\descript{| Path-Planning Lead}
-\location{Jan 2018 – Present | Somewhere, XX}
-\begin{tightemize}
-\item Spearhead the development effort for the path-planning functionality of a team of three robots.
-\item ROS provides movement servers and the planning is being implemented in Python to allow for fully-autonomous operation.
-\end{tightemize}
-\sectionsep
-
-\runsubsection{Chit Chat}
-\descript{| Class Project for Distributed Client-Server Programming}
-\location{Jan 2018 – May 2018 | Somewhere, XX}
-\begin{tightemize}
-\item Lead the development of \textbf{\href{https://github.com/user/repo}{Chit Chat}}, an anonymous chat application created as a class project.
-\item Chit Chat provides real-time communication while utilizing a PHP backend and AngularJS frontend.
-\end{tightemize}
-\sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     RESEARCH
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \section{Research}
-% \runsubsection{Cornell Robot Learning Lab}
-% \descript{| Researcher}
-% \location{Jan 2014 – Jan 2015 | Ithaca, NY}
-% Worked with \textbf{\href{http://www.cs.cornell.edu/~ashesh/}{Ashesh Jain}} and \textbf{\href{http://www.cs.cornell.edu/~asaxena/}{Prof Ashutosh Saxena}} to create \textbf{PlanIt}, a tool which  learns from large scale user preference feedback to plan robot trajectories in human environments.
-% \sectionsep
-
-% \runsubsection{Cornell Phonetics Lab}
-% \descript{| Head Undergraduate Researcher}
-% \location{Mar 2012 – May 2013 | Ithaca, NY}
-% Led the development of \textbf{QuickTongue}, the first ever breakthrough tongue-controlled game with \textbf{\href{http://conf.ling.cornell.edu/~tilsen/}{Prof Sam Tilsen}} to aid in Linguistics research.
-% \sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     COMMUNITY SERVICE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \section{Community Service}
-
-% \begin{tabular}{rll}
-% 2013 -- 2018    & Tennessee     & St. Baldrick's Foundation\\
-% 2014 -- 2017	& Tennessee     & American Cancer Society's Hope Lodge\\
-% 2013 -- 2015    & Tennessee     & Habitat for Humanity\\
-% 2011 -- 2015    & Tennessee     & Special Olympics\\
-% \end{tabular}
-% \sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     SOCIETIES
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \section{Societies}
-
-% \begin{tabular}{rll}
-% 2018 -- 2018    & National      & Association of Computing Machinery (ACM)\\
-% 2017 -- 2019	& National      & Scrum Alliance Certified ScrumMaster\\
-% 2015 -- 2019    & University    & Shackouls Honors College\\
-% \end{tabular}
-% \sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     AWARDS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \section{Awards}
-% \begin{tabular}{rll}
-% 2015        & 99\textsuperscript{th} percentile & National Merit Scholarship Finalist\\
-% \end{tabular}
-% \sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     PUBLICATIONS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \section{Publications}
-% \renewcommand\refname{\vskip -1.5cm} % Couldn't get this working from the .cls file
-% \bibliographystyle{abbrv}
-% \bibliography{publications}
-% \nocite{*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -227,67 +89,56 @@
 \begin{minipage}[t]{0.33\textwidth}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     SKILLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Skills}
+\subsection{Programming Languages}
+JavaScript \textbullet{} TypeScript \textbullet{} Java \\
+C++ \textbullet{} HTML \textbullet{} CSS \\
+
+\subsection{Frameworks \& Libraries}
+React \textbullet{} Redux \textbullet{} Vue.js \\
+Next.js \textbullet{} MobX \textbullet{} Lit Web Components \\
+Spring Boot \textbullet{} TailwindCSS \\
+
+\subsection{Databases}
+SQL \textbullet{} MySQL \textbullet{} PostgreSQL \textbullet{} MongoDB \\
+
+\subsection{Architecture \& APIs}
+Microservices \textbullet{} RESTful APIs \\
+Data Structures \textbullet{} Algorithms \\
+Design Patterns \textbullet{} System Design \\
+
+\subsection{Tools \& IDE}
+Git \textbullet{} GitHub \textbullet{} GitLab \textbullet{} JIRA \\
+VS Code \textbullet{} IntelliJ IDEA \textbullet{} Postman \\
+
+\subsection{Soft Skills \& Domain}
+OOP \textbullet{} Problem-Solving \textbullet{} Leadership \\
+Creative Editing Software \textbullet{} E-commerce \\
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     EDUCATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Education}
 
-\subsection{My University}
-\descript{Bachelor of Science in Computer Science with minors in Mathematics and Statistics}
-\location{Expected Dec 2019 | Somewhere, XX}
-% College of Engineering \\
-Dean's List (All Semesters) \\
-\location{ Cum. GPA: 4.0 / 4.0}
+\subsection{Punjab Technical \newline University}
+\descript{Bachelor of Technology in Computer Science and Engineering}
+\location{June 2021 | Punjab, India}
+\location{CGPA: 8.2/10.0 (Distinction)}
 \sectionsep
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     SKILLS
+%     AWARDS & ACHIEVEMENTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Skills}
-\subsection{Programming}
-\location{3+ years:}
-Python \textbullet{} C/C++ \\
-\location{1+ years:}
-PHP \textbullet{} JavaScript \\
-\location{0+ years:}
-Matlab \textbullet{} R \textbullet{} SAS \\
-\sectionsep
-
-\subsection{Technology}
-Git/Github \textbullet{} AWS \textbullet{} Linux \\
-UNIX \textbullet{} Windows \textbullet{} ROS \\
-Artificial Intelligence \textbullet{} Automation \\
-\sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     COURSEWORK
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Coursework}
-\subsection{Graduate}
-Analysis of Algorithms
-\sectionsep
-
-\subsection{Undergraduate}
-Artificial Intelligence \\
-{\footnotesize \textit{\textbf{(Teaching Assistant) }}} \\
-AI Robotics \\
-Operating Systems I \\
-Calculus I-IV \\
-Data Analysis I \\
-Introduction to Probability \\
-\sectionsep
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     Societies
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Societies}
-Association for Computing Machinery (ACM)\\
-Scrum Alliance Certified ScrumMaster\\
-University Honors College\\
-National Merit Scholarship Finalist \\
+\section{Achievements}
+\textbf{Competitive Programming}: Ranked \textbf{49th/22,000} and \textbf{463rd/200,000+} in major coding competitions \\
+\textbf{Four Star Coder} at CodeChef with 1000+ problems solved across platforms \\
+\textbf{Knight Badge} (2nd highest) on LeetCode with max rating 2000+ \\
 \sectionsep
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -295,9 +146,10 @@ National Merit Scholarship Finalist \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Links}
-Github:// \href{https://github.com/}{\bf JohnDoe} \\
-LinkedIn://  \href{https://www.linkedin.com/}{\bf johndoe}
+Github:// \href{https://github.com/sudo-sanjeev}{\bf sudo-sanjeev} \\
+Medium://  \href{https://medium.com/@sanjeev-singh}{\bf @sanjeev-singh} \\
+LeetCode://  \href{https://leetcode.com/u/Sanjeev1709912/}{\bf Sanjeev1709912}
 \sectionsep
 
 \end{minipage}
-\end{document}  \documentclass[]{article}
+\end{document}
