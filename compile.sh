@@ -142,39 +142,39 @@ extract_latex_errors() {
 # Function to organize output files
 organize_output_files() {
     local base_name="$1"
+    local moved_files=false
     
-    # Move log files to logs directory
-    if [ -f "$OUTPUT_DIR/$base_name.log" ]; then
-        mv "$OUTPUT_DIR/$base_name.log" "$LOGS_DIR/"
-    fi
+    echo "📁 Organizing output files..."
     
-    if [ -f "$OUTPUT_DIR/$base_name.aux" ]; then
-        mv "$OUTPUT_DIR/$base_name.aux" "$LOGS_DIR/"
-    fi
+    # Move log files from output directory to logs directory
+    for ext in log aux out toc lof lot; do
+        if [ -f "$OUTPUT_DIR/$base_name.$ext" ]; then
+            echo "   Moving $OUTPUT_DIR/$base_name.$ext → $LOGS_DIR/"
+            mv "$OUTPUT_DIR/$base_name.$ext" "$LOGS_DIR/"
+            moved_files=true
+        fi
+    done
     
-    if [ -f "$OUTPUT_DIR/$base_name.out" ]; then
-        mv "$OUTPUT_DIR/$base_name.out" "$LOGS_DIR/"
-    fi
+    # Also check for any stray files in the current directory (root) and move them
+    for ext in log aux out toc lof lot; do
+        if [ -f "$base_name.$ext" ]; then
+            echo "   ⚠️  Found stray file: $base_name.$ext → $LOGS_DIR/"
+            mv "$base_name.$ext" "$LOGS_DIR/"
+            moved_files=true
+        fi
+    done
     
-    if [ -f "$OUTPUT_DIR/$base_name.toc" ]; then
-        mv "$OUTPUT_DIR/$base_name.toc" "$LOGS_DIR/"
-    fi
-    
-    if [ -f "$OUTPUT_DIR/$base_name.lof" ]; then
-        mv "$OUTPUT_DIR/$base_name.lof" "$LOGS_DIR/"
-    fi
-    
-    if [ -f "$OUTPUT_DIR/$base_name.lot" ]; then
-        mv "$OUTPUT_DIR/$base_name.lot" "$LOGS_DIR/"
-    fi
-    
-    # Keep only PDF in output directory
+    # Final organization summary
     echo "📁 Organized output:"
     if [ -f "$OUTPUT_DIR/$base_name.pdf" ]; then
         echo "   📄 PDF: $OUTPUT_DIR/$base_name.pdf"
     fi
     if [ -f "$LOGS_DIR/$base_name.log" ]; then
         echo "   📋 Logs: $LOGS_DIR/$base_name.*"
+    fi
+    
+    if [ "$moved_files" = true ]; then
+        echo "✅ All auxiliary files organized in $LOGS_DIR/"
     fi
 }
 
@@ -196,83 +196,106 @@ else
     exit 1
 fi
 
+# Save current directory to ensure we return to it
+ORIGINAL_DIR=$(pwd)
+
 # Compile with source and output directories
-cd "$SOURCE_DIR"
+echo "📁 Changing to source directory: $SOURCE_DIR"
+cd "$SOURCE_DIR" || {
+    echo "❌ Failed to change to source directory: $SOURCE_DIR"
+    exit 1
+}
 
 # Create temporary log file for better error handling
 TEMP_LOG="../$LOGS_DIR/${BASE_NAME}_compile.log"
 
 echo "📝 Running $LATEX_ENGINE..."
+echo "📝 Command: $LATEX_ENGINE -interaction=nonstopmode -output-directory=\"../$OUTPUT_DIR\" \"$TEX_FILE\""
+
+# Run LaTeX with proper error capture
 $LATEX_ENGINE -interaction=nonstopmode -output-directory="../$OUTPUT_DIR" "$TEX_FILE" > "$TEMP_LOG" 2>&1
 COMPILE_EXIT_CODE=$?
-    
-    cd ..
-    
-    PDF_OUTPUT="$OUTPUT_DIR/$BASE_NAME.pdf"
-    LOG_OUTPUT="$LOGS_DIR/$BASE_NAME.log"
-    
-    # Organize output files (move logs to logs directory)
-    organize_output_files "$BASE_NAME"
-    
-    # Check if compilation was successful
-    if [ $COMPILE_EXIT_CODE -eq 0 ] && [ -f "$PDF_OUTPUT" ] && [ -s "$PDF_OUTPUT" ]; then
-        # Verify it's actually a PDF
-        if file "$PDF_OUTPUT" | grep -q "PDF document"; then
-            echo "✅ PDF generated successfully with local pdflatex!"
-            echo "📄 Input: $SOURCE_PATH"
-            echo "📄 PDF: $PDF_OUTPUT"
-            echo "📄 PDF size: $(wc -c < "$PDF_OUTPUT") bytes"
-            
-            # Check for warnings even in successful compilation
-            if [ -f "$LOG_OUTPUT" ]; then
-                WARNING_COUNT=$(grep -c "LaTeX Warning" "$LOG_OUTPUT" 2>/dev/null || echo "0")
-                WARNING_COUNT=${WARNING_COUNT:-0}
-                if [ "$WARNING_COUNT" -gt 0 ]; then
-                    echo "⚠️  Compiled successfully but with $WARNING_COUNT warning(s)"
-                    echo "📄 Check warnings in: $LOG_OUTPUT"
-                fi
-            fi
-            
-            echo
-            echo "🔄 Git workflow:"
-            echo "   git add . && git commit -m 'Update $BASE_NAME' && git push"
-            echo
-            exit 0
-        fi
-    fi
-    
-    # Compilation failed - extract and show errors
-    echo "❌ Compilation failed!"
-    echo
-    
-    # Try to extract errors from the log file
-    if [ -f "$LOG_OUTPUT" ]; then
-        extract_latex_errors "$LOG_OUTPUT" "$ERROR_LOG"
-    elif [ -f "$TEMP_LOG" ]; then
-        echo "📄 Raw compilation output:"
-        echo "=========================="
-        tail -20 "$TEMP_LOG"
-        echo
-        echo "📄 Full output saved to: $TEMP_LOG"
-    fi
-    
-    echo
-    echo "🔧 Troubleshooting steps:"
-    echo "1. Check the error details above"
-    echo "2. Open $SOURCE_PATH and look at the mentioned line numbers"
-    echo "3. Run: cat $ERROR_LOG (if exists) for detailed error analysis"
-    echo "4. Common issues:"
-    echo "   • Missing packages: Install with 'tlmgr install <package>'"
-    echo "   • Syntax errors: Check braces, commands, and special characters"
-    echo "   • File not found: Verify file paths and references"
-    
-    # Clean up failed PDF
-    rm -f "$PDF_OUTPUT"
 
-echo "❌ All compilation methods failed!"
+# Return to original directory
+cd "$ORIGINAL_DIR" || {
+    echo "❌ Failed to return to original directory"
+    exit 1
+}
+
+PDF_OUTPUT="$OUTPUT_DIR/$BASE_NAME.pdf"
+LOG_OUTPUT="$LOGS_DIR/$BASE_NAME.log"
+
+# Organize output files (move logs to logs directory)
+organize_output_files "$BASE_NAME"
+
+# Check if compilation was successful
+if [ $COMPILE_EXIT_CODE -eq 0 ] && [ -f "$PDF_OUTPUT" ] && [ -s "$PDF_OUTPUT" ]; then
+    # Verify it's actually a PDF
+    if file "$PDF_OUTPUT" | grep -q "PDF document"; then
+        echo "✅ PDF generated successfully!"
+        echo "📄 Input: $SOURCE_PATH"
+        echo "📄 PDF: $PDF_OUTPUT"
+        echo "📄 PDF size: $(wc -c < "$PDF_OUTPUT") bytes"
+        
+        # Check for warnings even in successful compilation
+        if [ -f "$LOG_OUTPUT" ]; then
+            WARNING_COUNT=$(grep -c "LaTeX Warning" "$LOG_OUTPUT" 2>/dev/null || echo "0")
+            WARNING_COUNT=${WARNING_COUNT:-0}
+            if [ "$WARNING_COUNT" -gt 0 ]; then
+                echo "⚠️  Compiled successfully but with $WARNING_COUNT warning(s)"
+                echo "📄 Check warnings in: $LOG_OUTPUT"
+            fi
+        fi
+        
+        echo
+        echo "🔄 Git workflow:"
+        echo "   git add . && git commit -m 'Update $BASE_NAME' && git push"
+        echo
+        exit 0
+    fi
+fi
+
+# Compilation failed - extract and show errors
+echo "❌ Compilation failed!"
 echo
-echo "📝 Manual options:"
-echo "1. Run: cd $SOURCE_DIR && pdflatex -output-directory=../$OUTPUT_DIR $TEX_FILE"
+
+# Try to extract errors from the log file
+if [ -f "$LOG_OUTPUT" ]; then
+    extract_latex_errors "$LOG_OUTPUT" "$ERROR_LOG"
+elif [ -f "$TEMP_LOG" ]; then
+    echo "📄 Raw compilation output:"
+    echo "=========================="
+    tail -20 "$TEMP_LOG"
+    echo
+    echo "📄 Full output saved to: $TEMP_LOG"
+fi
+
+# Also check for any stray files in the current directory and clean them up
+echo "🧹 Cleaning up any stray LaTeX files in root directory..."
+for ext in aux log out toc lof lot; do
+    if [ -f "${BASE_NAME}.${ext}" ]; then
+        echo "   Moving stray ${BASE_NAME}.${ext} to logs directory"
+        mv "${BASE_NAME}.${ext}" "$LOGS_DIR/"
+    fi
+done
+
+echo
+echo "🔧 Troubleshooting steps:"
+echo "1. Check the error details above"
+echo "2. Open $SOURCE_PATH and look at the mentioned line numbers"
+echo "3. Run: cat $ERROR_LOG (if exists) for detailed error analysis"
+echo "4. Common issues:"
+echo "   • Missing packages: Install with 'tlmgr install <package>'"
+echo "   • Syntax errors: Check braces, commands, and special characters"
+echo "   • File not found: Verify file paths and references"
+
+# Clean up failed PDF
+rm -f "$PDF_OUTPUT"
+
+echo "❌ Compilation failed!"
+echo
+echo "📝 Manual debugging options:"
+echo "1. Run: cd $SOURCE_DIR && $LATEX_ENGINE -output-directory=../$OUTPUT_DIR $TEX_FILE"
 echo "2. Use Overleaf: https://overleaf.com"
-echo "3. Check LaTeX installation: which pdflatex"
+echo "3. Check LaTeX installation: which $LATEX_ENGINE"
 exit 1 

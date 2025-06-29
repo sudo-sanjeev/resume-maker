@@ -1,21 +1,43 @@
-# LaTeX auxiliary files
+# LaTeX auxiliary files (anywhere - these should only be in logs/ folder)
 *.aux
 *.bbl
 *.blg
 *.fdb_latexmk
 *.fls
-*.log
 *.out
 *.synctex.gz
 *.toc
-*.pdf
+*.lof
+*.lot
 
-# Generated PDFs (optional)
-# *.pdf
+# LaTeX log files (anywhere - these should only be in logs/ folder)
+*.log
+
+# Ignore any LaTeX files that accidentally end up in wrong directories
+# (These should only be in logs/ folder via our organized compilation)
+/src/*.aux
+/src/*.log
+/src/*.out
+/resume/*
+/*.aux
+/*.log
+/*.out
+
+# Generated PDFs - keep the ones in resume/ folder but ignore temp PDFs
+# /resume/*.pdf  # Uncomment this line if you don't want to track PDFs
 
 # macOS
 .DS_Store
 
 # Temporary files
 *.tmp
+*~
+
+# IDE and editor files
+.vscode/
+*.swp
+*.swo
+
+# Backup files
+*.bak
 *~
