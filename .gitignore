@@ -24,6 +24,10 @@
 /*.log
 /*.out
 
+# Personal resume file - keep your personal information private
+# Users should copy resume-template.tex to resume.tex and edit it
+src/resume.tex
+
 # Generated PDFs - keep the ones in resume/ folder but ignore temp PDFs
 # /resume/*.pdf  # Uncomment this line if you don't want to track PDFs
 
