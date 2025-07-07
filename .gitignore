@@ -9,6 +9,7 @@
 *.toc
 *.lof
 *.lot
+*.tex
 
 # LaTeX log files (anywhere - these should only be in logs/ folder)
 *.log
