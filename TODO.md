@@ -16,21 +16,17 @@
 
 ## 🔴 Critical
 
-- [ ] **C1 — Promote Achievements to the top of the right column**
-  - Move `\section{Achievements}` ABOVE `\section{Skills}` in the right column
-  - Google L4 recruiters scan for competitive programming signal immediately
-  - This is stronger for you than any bullet point in Experience
+- [~] **C1 — SKIPPED: Achievements stay below Skills**
+  - Achievements are college-era (CodeChef, LeetCode ratings) — leading with them undersells 5 years of professional work
+  - Decision: keep Skills at top, Achievements stay lower in right column
 
-- [ ] **C2 — Name the coding contests explicitly**
-  - Replace *"major coding competitions"* with real contest names
-  - If any are Google-run (Code Jam, Kick Start, Hash Code) → name them first, they carry outsized weight
-  - Format: *"Ranked 49th / 22,000 in [Contest Name, Year]"*
-  - Add total problems solved count if it's 1,500+
+- [~] **C2 — SKIPPED: Achievements section removed entirely**
+  - College-era competitive programming looks out of place with 5 years of professional experience
+  - Entire `\section{Achievements}` dropped from resume
+  - Can add a professional achievements section later if there are notable wins to highlight
 
-- [ ] **C3 — Replace Objective with a short technical Summary**
-  - Delete `\section{Objective}` entirely — generic filler, hurts more than it helps
-  - Replace with `\section{Summary}` — 2 lines, technical framing, not seniority framing:
-    > *"Software Engineer with 5+ years building large-scale frontend systems. Strong problem-solver with competitive programming background (LeetCode Knight, max rating 2000+). Experienced in generative AI features, performance optimization, and component architecture."*
+- [x] **C3 — Replace Objective with a short technical Summary**
+  - Replaced with: *"Software Engineer with 5+ years building large-scale frontend systems at Adobe. Specialized in generative AI features, performance optimization, and component architecture — shipping to 100M+ users on Adobe Express. Open to relocation — Bay Area / Seattle."*
 
 - [ ] **C4 — Add a Projects section**
   - This is table stakes for L4 — Google wants to see what you build outside work
@@ -149,7 +145,7 @@ Work through in this order for maximum impact per edit:
 
 | Priority | Total | Done | Remaining |
 |----------|-------|------|-----------|
-| 🔴 Critical | 6 | 0 | 6 |
+| 🔴 Critical | 6 | 1 | 4 (2 skipped) |
 | 🟡 Important | 9 | 0 | 9 |
 | 🟢 Nice-to-have | 7 | 0 | 7 |
-| **Total** | **22** | **0** | **22** |
+| **Total** | **22** | **1** | **19** |
